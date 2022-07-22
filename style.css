@@ -1,0 +1,58 @@
+body {
+ background-image: linear-gradient(to right top, #03430c, #05490d, #07500f, #0a5610, #0e5d11, #106412, #116c13, #137314, #127d16, #108818, #0e921a, #099d1c);
+ background-size: cover;
+ background-repeat: no-repeat;
+ 
+}
+
+h1 {
+    text-align: center;
+    font-size: 50px;
+    font-family: Great Vibes;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 275px 100px 100px 255px;
+    
+}
+
+.cards {
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.counts {
+    display: flex;
+    justify-content: space-around;
+    font-size: 30px;
+    font-family: Abril fatface;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.results {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+    font-family: Abril fatface;
+    font-size: 35px;
+    color: rgb(148, 148, 19);
+}
+
+button {
+    width: 150px;
+    height: 30px;
+    font-size: 20px;
+    color: rgb(152, 157, 3);
+    background-color: black;
+}
+
+.button {
+    display: flex;
+    justify-content: center; 
+}
+
+
+
