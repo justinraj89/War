@@ -1,12 +1,15 @@
-const cardValues = [2,3,4,5,6,7,8,9,10,"J","Q","K","A"];
+const cardValues = ['02','03','04','05','06','07','08','09','10','J','Q','K','A'];
+const suits = ['spade', 'club', 'diamond', 'heart'];
+const masterDeck = buildMasterDeck();
 
-let playerScore = 0;
-let computerScore = 0;
+//------ State Variables
+let shuffledDeck;
+let playerScore;
+let computerScore;
+let playerCard;
+let cpuCard;
 
-let playerCard = null;
-let cpuCard = null;
 
-let randomCard;
 
 // create elements for the current cards remaining values
 // you may have to seperate the number from the current <div>
@@ -25,9 +28,11 @@ init();
 // beginning of the game. there should be no display result. and must randomize
 // deck of cards before each new game.
 
+init();
+
 function init() {
-    randomizeCards();
-    
+    shuffleCards();
+    resultsText.innerText = "";
 }
 
 
@@ -41,8 +46,21 @@ function render(){
 
 }
 
-function randomizeCards(){
+function shuffleCards(){
     let randomIndex = Math.floor(Math.random() * cardValues.length);
     randomCard = cardValues[randomIndex];
 }
 
+function buildMasterDeck() {
+    const deck = [];
+    suits.forEach((suit) => {
+        cardValues.forEach((value) => {
+            deck.push({
+                face: `${suit}${value}`,
+            });
+        });
+    });
+    return deck;
+}
+
+buildMasterDeck();
