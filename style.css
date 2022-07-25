@@ -25,9 +25,14 @@ h1 {
     grid-template-rows: 100px 300px 80px 60px 290px;
     grid-column-gap: 0px;
     grid-row-gap: 6px; */
+}
 
-    
-    
+#p-card {
+    width: 175px;
+}
+
+#c-card {
+    width: 175px;
 }
 
 .cards {
