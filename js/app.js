@@ -22,8 +22,9 @@ let playerCardIndex;
 
 const drawButton = document.querySelector('.draw');
 const startButton = document.querySelector('.start');
-const playerCardsRemaining = document.querySelector('.playerCards');
-const cpuCardsRemaining = document.querySelector('.cpuCards');
+const playerCardsRemaining = document.querySelector('.player-cards');
+const cpuCardsRemaining = document.querySelector('.cpu-cards');
+
 const syncButton = document.querySelector('.sync');
 
 
@@ -40,7 +41,9 @@ function init() {
     cpuCards = shuffledDeck.slice (26 , 52);
     // cpuCardIndex = 0;
     // playerCardIndex = 0;
-    
+    playerCardIndex = Math.floor(Math.random() * playerCards.length);
+    cpuCardIndex = Math.floor(Math.random() * cpuCards.length);
+
     
 }
 
@@ -56,8 +59,8 @@ function drawCard(){
     let playerCard = playerCards[playerCardIndex];
     let cpuCard = cpuCards[cpuCardIndex];
 
-    console.log("PLAYER CARD", playerCardIndex, "=", playerCard.value,
-    "CPU CARD", cpuCardIndex, "=", cpuCard.value)
+    console.log("PLAYER CARD INDEX", playerCardIndex, "=", playerCard.value,
+    "CPU CARD INDEX", cpuCardIndex, "=", cpuCard.value);
 
     if (playerCard.value > cpuCard.value) {
         playerCards.push(cpuCard);
@@ -116,6 +119,8 @@ function drawCard(){
 
 function render(){   // This will need to render the currentCard image to the screen, and update the cards remaining counts
     
+    playerCardsRemaining.innerText = playerCards.length;
+    cpuCardsRemaining.innerText = cpuCards.length;
     
 
 }
@@ -164,7 +169,7 @@ syncButton.addEventListener('click', syncGame);
 // console.table(masterDeck); // <-- use console.table to view better
 
 function syncGame() {
-    while((cpuCards.length - 1 || playerCards.length - 1)) {
+    while((cpuCards.length) - 1 || (playerCards.length) - 1) {
         drawCard();
     }
 }
