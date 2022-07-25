@@ -29,7 +29,6 @@ const drawButton = document.querySelector('.draw');
 const startButton = document.querySelector('.start');
 const playerCardsRemaining = document.querySelector('.player-cards');
 const cpuCardsRemaining = document.querySelector('.cpu-cards');
-
 let playerCardImage = document.querySelector('#p-card');
 let cpuCardImage = document.querySelector('#c-card');
 
@@ -58,6 +57,8 @@ function init() {
 function startGame () {
     startButton.classList.add("hide");
     drawButton.classList.remove("hide");   
+    playerCardsRemaining.innerText = 26;
+    cpuCardsRemaining.innerText = 26;
 }
 
 
