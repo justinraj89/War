@@ -16,7 +16,7 @@ h1 {
 .container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 300px 80px 60px 290px;
+    grid-template-rows: 150px 300px 80px 150px 150px;
     grid-column-gap: 0px;
     grid-row-gap: 6px;
     
@@ -48,6 +48,7 @@ h1 {
 }
 
 .counts {
+    color: white;
     grid-row: 4;
     display: flex;
     justify-content: space-around;
