@@ -16,22 +16,29 @@
 </head>
 
 <body>
-    <h1>A game of War</h1>
+    
         <div class="container">
-            
+            <h1>A Game of War</h1>
             <div class="cards">
                 <div class="player-cards"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReQQmL0AVZs4DAiGGm1hc8QoCG5ofd2GQO4eGKzX05PIa3JTHv4vfLXpcs6ybeVwakcr0&usqp=CAU"></div>
                 <div class="cpu-cards"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReQQmL0AVZs4DAiGGm1hc8QoCG5ofd2GQO4eGKzX05PIa3JTHv4vfLXpcs6ybeVwakcr0&usqp=CAU"></div>  
             </div>
+            <div class="cardsRemaining">
+                <div>cards remaining:</div>
+                <div>cards remaining:</div>
+            </div>
+
             <div class="counts">
-                <div class="player-card-count">cards remaining:<br>26</div>
-                <div class="cpu-card-count">cards remaining:<br>26</div>
+                <div class="playerCards"></div>
+                <div class="cpuCards"></div>
             </div>
             
             <div class="button">
-                <button class="draw">Draw Card</button>
+                <button class="start">Start Game</button>
+                <button class="draw hide">Draw Card</button>
             </div>
-            <div class="results"></div>
+            <button class="sync">Sync Game</button>
+            
         </div>
 </body>
 </html>

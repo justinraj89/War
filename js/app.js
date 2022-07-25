@@ -2,36 +2,30 @@
 const cards = ['02','03','04','05','06','07','08','09','10','J','Q','K','A'];
 const suits = ['spade', 'club', 'diamond', 'heart'];
 const masterDeck = buildMasterDeck();
+const shuffledDeck = getNewShuffledDeck();
 
 
 
 
 //------ State Variables
-let shuffledDeck = getNewShuffledDeck();
 let playerScore;
 let computerScore;
-let player = '';
-let cpu = '';
 let playerCards;
-let cpucards;
-
-let currentCard;
-
-
-
+let cpuCards;
+let cpuCardIndex;
+let playerCardIndex;
 
 
 // create elements for the current cards remaining values
 // you may have to seperate the number from the current <div>
 // and then cache them to in order to manipulate them with DOM
 
-const resultsText = document.querySelector('.results')
 const drawButton = document.querySelector('.draw');
+const startButton = document.querySelector('.start');
+const playerCardsRemaining = document.querySelector('.playerCards');
+const cpuCardsRemaining = document.querySelector('.cpuCards');
+const syncButton = document.querySelector('.sync');
 
-//-------------Event listeners----------------------
-drawButton.addEventListener('click', drawCard);
-
-init();
 
 
 // This needs to reset the values of playerScore and computerScore to 26 at the 
@@ -39,24 +33,90 @@ init();
 // deck of cards before each new game.
 
 
+init();
 
 function init() {
-    getNewShuffledDeck();
     playerCards = shuffledDeck.slice(0, 26);
-    cpucards = shuffledDeck.slice (26 , 52);
-    currentCard = 0;
-
-}
-
-
-
-function drawCard(){
+    cpuCards = shuffledDeck.slice (26 , 52);
+    // cpuCardIndex = 0;
+    // playerCardIndex = 0;
     
+    
+}
 
+function startGame () {
+    startButton.classList.add("hide");
+    drawButton.classList.remove("hide");   
 }
 
 
-function render(){
+// 
+function drawCard(){
+
+    let playerCard = playerCards[playerCardIndex];
+    let cpuCard = cpuCards[cpuCardIndex];
+
+    console.log("PLAYER CARD", playerCardIndex, "=", playerCard.value,
+    "CPU CARD", cpuCardIndex, "=", cpuCard.value)
+
+    if (playerCard.value > cpuCard.value) {
+        playerCards.push(cpuCard);
+        cpuCards.splice(cpuCardIndex,1)
+
+  
+    }
+    else if (playerCard.value < cpuCard.value) {
+        cpuCards.push(playerCard);
+        playerCards.splice(playerCardIndex,1)
+        
+    } else {
+        console.log("TIE!")
+        
+    }
+    cpuCardIndex++
+    playerCardIndex++
+    console.log("Indexes after increment", cpuCardIndex,playerCardIndex)
+
+    if(cpuCardIndex >= (playerCards.length - 1) || cpuCardIndex >= (cpuCards.length - 1))
+     {
+        if (playerCards.length === 52) {
+            alert("PLAYER WINS!")
+            return;
+            
+        } 
+        else if (cpuCards.length === 52) {
+            alert("CPU WINS!")
+            return;
+        }
+        console.log("RESETTING INDEX")
+        cpuCardIndex = 0;
+    }
+
+    if(playerCardIndex >= (playerCards.length-1) || playerCardIndex >= (cpuCards.length-1)
+    ) {
+        if (playerCards.length === 52) {
+            alert("PLAYER WINS!")
+            return;
+            
+        } 
+        else if (cpuCards.length === 52) {
+            alert("CPU WINS!")
+            return;
+        }
+        console.log("RESETTING INDEX")
+        playerCardIndex = 0;
+    }
+
+    render();
+    console.table("PLAYER CARDS:",playerCards.length, "CPU CARDS",cpuCards.length)
+
+}
+  
+
+
+function render(){   // This will need to render the currentCard image to the screen, and update the cards remaining counts
+    
+    
 
 }
 
@@ -75,15 +135,20 @@ function getNewShuffledDeck() {
 
 
 // This function loops through the above 'suits' and 'cardValues' arrays created and pushes them 
-// into one deck.
+// into one deck. Added keys to object for "value" , and "imageUrl"
+
 
 function buildMasterDeck() {
     const deck = [];
     suits.forEach((suit) => {
-        cards.forEach((value) => {
-            deck.push({
-                face: `${suit}${value}`,
+        let i = 1;  // this sets the value of each suit to 1 to begin with.
+        cards.forEach((card) => {
+            deck.push({            // cards.forEach is creating an object for each card
+                face: `${suit}${card}`,
+                imageUrl: "http//xxxx",
+                value: i
             });
+            i++    // <-- try to understand this 
         });
     });
     return deck;
@@ -91,20 +156,16 @@ function buildMasterDeck() {
 
 
 
-// This function will take the deck and split it in 2
-// slice method (startIndex, deleteCount). *reminder
+//-------------Event listeners----------------------
+startButton.addEventListener('click', startGame);
+drawButton.addEventListener('click', drawCard);
+syncButton.addEventListener('click', syncGame);
 
+// console.table(masterDeck); // <-- use console.table to view better
 
-
-// This below function splits and randomizes, but only from the first 26 cards, not thew whole 52 :(
-
-// function splitDeck () {
-//     let halfDeck = masterDeck.slice(0, 26);
-//     console.log(halfDeck);
-//     let randomIdx = Math.floor(Math.random() * halfDeck.length);
-//     console.log(halfDeck[randomIdx]);
-
-// }
-
-// splitDeck();
+function syncGame() {
+    while((cpuCards.length - 1 || playerCards.length - 1)) {
+        drawCard();
+    }
+}
 
