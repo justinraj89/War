@@ -4,6 +4,7 @@ body {
  background-repeat: no-repeat;
  
  
+ 
 }
 
 h1 {
@@ -17,7 +18,7 @@ h1 {
 .container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 150px 250px 80px 100px 150px;
+    grid-template-rows: 200px 250px 80px 100px 200px;
     grid-column-gap: 0px;
     grid-row-gap: 6px;
     
@@ -29,11 +30,11 @@ h1 {
 }
 
 #player-deck {
-    width: 155px;
+    width: 150px;
 }
 
 #cpu-deck {
-    width: 155px;
+    width: 150px;
 }
 
 #p-card {
@@ -42,6 +43,10 @@ h1 {
 
 #c-card {
     width: 150px;
+}
+
+.war-cards {
+    width: 100px;
 }
 
 .cards {
@@ -100,5 +105,6 @@ button:hover {
 .hide {
     display: none;
 }
+
 
 
