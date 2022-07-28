@@ -17,19 +17,23 @@ let warModeEnabled = false;
 
 
 //--------------- DOM Elements
+
+//----- Buttons
 const drawButton = document.querySelector('.draw');
 const startButton = document.querySelector('.start');
 const warButton = document.querySelector('.war');
 const restartButton = document.querySelector('.restart');
+//---- Score Count/Display Winner
+const winnerNotification = document.querySelector('.winnerNotification');
 const playerCardsRemaining = document.querySelector('.player-cards');
 const cpuCardsRemaining = document.querySelector('.cpu-cards');
+//---- Card Images
 let playerCardImage = document.querySelector('#p-card');
 let cpuCardImage = document.querySelector('#c-card');
-const winnerNotification = document.querySelector('.winnerNotification');
-let playerWarCardFaceDown = document.querySelector('#player-warCardDown');  // Tied to the war function, only revelaed during 'War'
-let cpuWarCardFaceDown = document.querySelector('#cpu-warCardDown');        // Tied to the war function, only revelaed during 'War'
-let playerWarCardFaceUp = document.querySelector('#player-warCardUp');      // Tied to the war function, only revelaed during 'War'
-let cpuWarCardFaceUp = document.querySelector('#cpu-warCardUp');            // Tied to the war function, only revealed during 'War'
+let playerWarCardFaceDown = document.querySelector('#player-warCardDown'); 
+let cpuWarCardFaceDown = document.querySelector('#cpu-warCardDown');        
+let playerWarCardFaceUp = document.querySelector('#player-warCardUp');      
+let cpuWarCardFaceUp = document.querySelector('#cpu-warCardUp');            
 
 
 init();
@@ -37,15 +41,15 @@ init();
 function init() {
     playerCards = shuffledDeck.slice(0, 26);
     cpuCards = shuffledDeck.slice (26 , 52);
-    cpuCardIndex = 0;
-    playerCardIndex = 0;
+    // cpuCardIndex = 0;
+    // playerCardIndex = 0;
 }
 
 function startGame () {
-    startButton.classList.add("hide");  // when you click 'start game' button it is hidden
-    drawButton.classList.remove("hide");   // and then 'draw card' button is revealed
-    playerCardsRemaining.innerText = 26;  // sets player and CPU scores to 26
-    cpuCardsRemaining.innerText = 26;
+    startButton.classList.add("hide");  
+    drawButton.classList.remove("hide");   
+    playerCardsRemaining.innerText = playerCards.length;  
+    cpuCardsRemaining.innerText = cpuCards.length;
 }
 
 function restartGame() {
@@ -60,9 +64,9 @@ function restartGame() {
 }
 
 function warCleanup() {
-    playerWarCardFaceDown.classList.add("hide");  // this functions purpose is to hide all the extra cards
-    cpuWarCardFaceDown.classList.add("hide");     // that get displayed when war takes place. It is put at the
-    playerWarCardFaceUp.classList.add("hide");    // beginning of the drawCard() as the first check to clear the cards
+    playerWarCardFaceDown.classList.add("hide");  
+    cpuWarCardFaceDown.classList.add("hide");     
+    playerWarCardFaceUp.classList.add("hide");    
     cpuWarCardFaceUp.classList.add("hide");
     warModeEnabled = false;
 }
@@ -75,16 +79,16 @@ function drawCard() {
     playerCardImage.classList.remove('hide');
     cpuCardImage.classList.remove('hide');
         
-    playerCard = playerCards.shift()  // shift removes an element from beginning of array.
+    playerCard = playerCards.shift()  
     cpuCard = cpuCards.shift()      
 
     console.log(playerCard);
 
-    winnerNotification.innerText = '';  
+    // winnerNotification.innerText = '';  
 
-    if (playerCard.value > cpuCard.value) {   // The conditional statement checks for the higher value (values assigned to each card object)
-        playerCards.push(playerCard);            // the winner pushes the losers card into their deck
-        playerCards.push(cpuCard);            // the winner pushes the losers card into their deck
+    if (playerCard.value > cpuCard.value) {   
+        playerCards.push(playerCard);            
+        playerCards.push(cpuCard);            
         winnerNotification.innerText = 'Player Wins!';                               
         render();
     }                                                                                
@@ -93,12 +97,11 @@ function drawCard() {
         cpuCards.push(playerCard);
         winnerNotification.innerText = 'Computer Wins!'
         render();    
-    } else {
-        renderWar();
-        console.log('TIE');                   // In the case of a tie, or "War", the warButton is revealed, and the draw button is hidden.
-        warButton.classList.remove ("hide");  // the Tied cards remain on the screen.
+    } else {                   
+        warButton.classList.remove ("hide");  
         drawButton.classList.add('hide');   
         winnerNotification.innerText = "WAR!";
+        renderWar();
     }
 
     if (cpuCards.length === 52) {
@@ -113,14 +116,14 @@ function drawCard() {
     } 
 }
 
-function war() {   // // this function is tied to the warButton click eventListener . Created objects for players war cards, and CPUs war cards.
-    if(playerCards.length <= 2) {
+function war() {   
+    if(playerCards.length <= 1) {
         drawButton.classList.add('hide');
         warButton.classList.add('hide');   
         winnerNotification.innerText = 'Computer Wins the Game!'
         return;     
     } 
-    else if(cpuCards.length <= 2) {
+    else if(cpuCards.length <= 1) {
         warButton.classList.add('hide');
         drawButton.classList.add('hide');   
         winnerNotification.innerText = 'Player Wins the Game!'
@@ -129,32 +132,28 @@ function war() {   // // this function is tied to the warButton click eventListe
     
     warModeEnabled = true;  
 
-    playerWarCardFaceDown.classList.remove("hide");   // these are all hidden during normal gameplay (when its not war)
-    cpuWarCardFaceDown.classList.remove("hide");      // when war occurs, all are rendered onto screen. Removing 'hide' CSS class.
+    playerWarCardFaceDown.classList.remove("hide");   
+    cpuWarCardFaceDown.classList.remove("hide");     
     playerWarCardFaceUp.classList.remove("hide");
     cpuWarCardFaceUp.classList.remove("hide");
 
-    warButton.classList.add("hide");  // warButton is hidden after it is clicked, and drawCard button comes back
-    drawButton.classList.remove("hide");  // draw card button comes back, but is not clicked during war, when you click it, it resets back to normal gameplay
+    warButton.classList.add("hide");  
+    drawButton.classList.remove("hide");  
 
     playerWarCards = {
-        faceDownCard: playerCards.shift(),  // one card is dealed down, the other dealed up, whoevers faceUpCard value is higher wins both cards.
+        faceDownCard: playerCards.shift(),  
         faceUpCard: playerCards.shift()  
     };
 
     cpuWarCards = {
-        faceDownCard: cpuCards.shift(),  // one card is dealed down, the other dealed up, whoevers faceUpCard value is higher wins both cards.
+        faceDownCard: cpuCards.shift(),  
         faceUpCard: cpuCards.shift()  
     };
 
-    playerWarCardFaceUp.src = playerWarCards.faceUpCard.imageUrl;  // sets the images of the faceUp cards to their imageURL
-    cpuWarCardFaceUp.src = cpuWarCards.faceUpCard.imageUrl;        // warFaceCardUp variables have a CSS 'hide' applied
+    playerWarCardFaceUp.src = playerWarCards.faceUpCard.imageUrl;  
+    cpuWarCardFaceUp.src = cpuWarCards.faceUpCard.imageUrl;        
 
-    // console.log(playerWarCards.faceUpCard);
-    // console.log(cpuWarCards.faceUpCard);
-
-    
-
+   
     if(playerWarCards.faceUpCard.value > cpuWarCards.faceUpCard.value) {  
         playerCards.push(cpuWarCards.faceUpCard); 
         playerCards.push(cpuWarCards.faceDownCard);
@@ -186,9 +185,7 @@ function war() {   // // this function is tied to the warButton click eventListe
     }
 }
 
-
-function render(){   // This will need to render the currentCard image to the screen, and update the cards remaining counts
-    
+function render() {   
     playerCardsRemaining.innerText = playerCards.length;
     cpuCardsRemaining.innerText = cpuCards.length;
     playerCardImage.src = playerCard.imageUrl;
@@ -200,23 +197,15 @@ function renderWar() {
     cpuCardImage.src = cpuCard.imageUrl;
 }
 
-// This function takes the existing masterDeck and uses Math.random() to randomly mix the deck.
-
 function getNewShuffledDeck() {
-    const tempDeck = [...masterDeck]; // '...' copies masterDeck without modifying the original
+    const tempDeck = [...masterDeck]; 
     const newShuffledDeck = [];
     while (tempDeck.length) {
         const randomIndex = Math.floor(Math.random() * tempDeck.length);
         newShuffledDeck.push(tempDeck.splice(randomIndex, 1)[0]);
     }
-    
     return newShuffledDeck;
 }
-
-
-// This function loops through the above 'suits' and 'cardValues' arrays created and pushes them 
-// into one deck. Added keys to object for "value" , and "imageUrl"
-
 
 function buildMasterDeck() {
     const deck = [];
@@ -234,21 +223,11 @@ function buildMasterDeck() {
     return deck;
 }
 
-
-
 //-------------Event listeners----------------------
 startButton.addEventListener('click', startGame);
 drawButton.addEventListener('click', drawCard);
 warButton.addEventListener('click', war);
 restartButton.addEventListener('click', restartGame);
 
-// simulateButton.addEventListener('click', simulateGame);
 
-// console.table(masterDeck); // <-- use console.table to view better
-
-// function simulateGame() {
-//     while((cpuCards.length - 1)  || (playerCards.length -1)) {
-//         drawCard();
-//     }
-// }
 

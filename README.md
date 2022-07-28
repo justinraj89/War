@@ -30,7 +30,9 @@ case that a player does not have enough cards in their deck to participate in _*
 <sub>JavaScript, HTML, CSS</sub>
 
 
-#### Link to deployed game goes here
+#### Link To play Game Below
+[click here!](singular-kitsune-6e821b.netlify.app)
+
 
 ## Next Steps
 - Implement "Double War" feature
