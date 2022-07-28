@@ -62,7 +62,7 @@ h1 {
     display: flex;
     justify-content: center;
     font-size: 30px;
-    color: forestgreen;
+    color: gold;
     animation: hide 1s linear 15s 1 forwards;
     grid-row: 3;
     font-family: Abril fatface;    
