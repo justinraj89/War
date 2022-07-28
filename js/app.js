@@ -2,7 +2,6 @@
 const cards = ['02','03','04','05','06','07','08','09','10','J','Q','K','A'];
 const suits = ['spade', 'club', 'diamond', 'heart'];
 const masterDeck = buildMasterDeck();
-const shuffledDeck = getNewShuffledDeck();
 
 //------ State Variables
 let playerCards;
@@ -13,6 +12,7 @@ let playerCard;
 let cpuCard;
 let playerWarCards;
 let cpuWarCards;
+let shuffledDeck = getNewShuffledDeck();
 let warModeEnabled = false;
 
 
@@ -52,14 +52,17 @@ function startGame () {
     cpuCardsRemaining.innerText = cpuCards.length;
 }
 
-function restartGame() {
+function newGame() {
     if(warModeEnabled) {
         warCleanup();
     }
+    shuffledDeck = getNewShuffledDeck();
+    playerCards = shuffledDeck.slice(0, 26);
+    cpuCards = shuffledDeck.slice (26 , 52);
     playerCardImage.classList.add('hide');
     cpuCardImage.classList.add('hide');
     winnerNotification.innerText = '';
-    init();
+    warButton.classList.add('hide');
     startGame();
 }
 
@@ -81,8 +84,6 @@ function drawCard() {
         
     playerCard = playerCards.shift()  
     cpuCard = cpuCards.shift()      
-
-    console.log(playerCard);
 
     // winnerNotification.innerText = '';  
 
@@ -227,7 +228,7 @@ function buildMasterDeck() {
 startButton.addEventListener('click', startGame);
 drawButton.addEventListener('click', drawCard);
 warButton.addEventListener('click', war);
-restartButton.addEventListener('click', restartGame);
+restartButton.addEventListener('click', newGame);
 
 
 
