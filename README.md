@@ -9,19 +9,19 @@ losers 3 cards, along with their own cards, and puts into the bottom of their de
 case that a player does not have enough cards in their deck to participate in _*War*_, the player automatically loses. </sub>
 
 #### Opening Screen
-![Opening Screen](https://i.imgur.com/YQg3erF.jpg)
+![Opening Screen](https://i.imgur.com/6OUEOBh.jpg)
 
 ### Gameplay Screen
-![MidGame](https://i.imgur.com/m4rHRB7.jpg) 
+![MidGame](https://i.imgur.com/OdRkg99.jpg) 
 
 ### War start screen
-![WarStart](https://i.imgur.com/lv8FZcd.jpg) 
+![WarStart](https://i.imgur.com/zBlwEVH.jpg) 
 
 ### War Results screen
-![midWar](https://i.imgur.com/Mnt0zpK.jpg)
+![midWar](https://i.imgur.com/SLwflBu.jpg)
 
 ### Winner Screen
-![winner](https://i.imgur.com/VhaEqS6.jpg)
+![winner](https://i.imgur.com/atzy0ov.jpg)
 
 ### Wire Frame Mockups
 ![wireFrame](https://i.imgur.com/VuOnQJa.png)
