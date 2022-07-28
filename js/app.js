@@ -24,10 +24,12 @@ let warModeEnabled = false;
 const drawButton = document.querySelector('.draw');
 const startButton = document.querySelector('.start');
 const warButton = document.querySelector('.war');
+const restartButton = document.querySelector('.restart');
 const playerCardsRemaining = document.querySelector('.player-cards');
 const cpuCardsRemaining = document.querySelector('.cpu-cards');
 let playerCardImage = document.querySelector('#p-card');
 let cpuCardImage = document.querySelector('#c-card');
+const winnerNotification = document.querySelector('.winnerNotification');
 
 let playerWarCardFaceDown = document.querySelector('#player-warCardDown');  // Tied to the war function, only revelaed during 'War'
 let cpuWarCardFaceDown = document.querySelector('#cpu-warCardDown');        // Tied to the war function, only revelaed during 'War'
@@ -44,6 +46,13 @@ function init() {
     cpuCards = shuffledDeck.slice (26 , 52);
     cpuCardIndex = 0;
     playerCardIndex = 0;
+}
+
+function restartGame() {
+    playerCardImage.classList.add('hide');
+    cpuCardImage.classList.add('hide');
+    init();
+    startGame();
 }
 
 function startGame () {
@@ -66,6 +75,9 @@ function drawCard() {
     if (warModeEnabled) { 
         warCleanup() 
     }
+
+    playerCardImage.classList.remove('hide');
+    cpuCardImage.classList.remove('hide');
         
     playerCard = playerCards[playerCardIndex];   // in the init(), playerCardIndex and cpuCardIndex both set to 0
     cpuCard = cpuCards[cpuCardIndex];           // so playerCard and cpuCard indexes both start at 0 to begin with.
@@ -75,20 +87,23 @@ function drawCard() {
 
     if (playerCard.value > cpuCard.value) {   // The conditional statement checks for the higher value (values assigned to each card object)
         playerCards.push(cpuCard);            // the winner pushes the losers card into their deck
-        cpuCards.splice(cpuCardIndex,1)       // splice parameters are.. (start, how many elements to remove. So in this case, the current card)
+        cpuCards.splice(cpuCardIndex,1);
+        winnerNotification.innerText = 'Player Wins!'       // splice parameters are.. (start, how many elements to remove. So in this case, the current card)
     }                                                                                
     else if (playerCard.value < cpuCard.value) {
         cpuCards.push(playerCard);
-        playerCards.splice(playerCardIndex,1)
-        
+        playerCards.splice(playerCardIndex,1);
+        winnerNotification.innerText = 'CPU Wins!'
+
     } else {
         console.log('TIE');                   // In the case of a tie, or "War", the warButton is revealed, and the draw button is hidden.
         warButton.classList.remove ("hide");  // the Tied cards remain on the screen.
         drawButton.classList.add('hide');      
         }
-
+    
     cpuCardIndex++           // after the conditional statements have been checked, the playerCardIndex and cpuCardIndex both get incremented by 1       
     playerCardIndex++
+    
 
     console.log("Indexes after increment", cpuCardIndex,playerCardIndex)
 
@@ -97,7 +112,7 @@ function drawCard() {
             alert("Computer WINS!")
             return;     
         } 
-        console.log("RESETTING INDEX") 
+        console.log("RESETTING CPU INDEX") 
         cpuCardIndex = Math.floor(Math.random() * cpuCards.length - 1 );  // this resets the card index to a random number upon reset (avoid never ending game)
     }
 
@@ -106,7 +121,7 @@ function drawCard() {
             alert("PLAYER WINS!")
             return;       
         } 
-        console.log("RESETTING INDEX")
+        console.log("RESETTING PLAYER INDEX")
         playerCardIndex = Math.floor(Math.random() * playerCards.length - 1);
     }
     render();
@@ -147,16 +162,16 @@ function war() {             // // this function is tied to the warButton click 
     warButton.classList.add("hide");  // warButton is hidden after it is clicked, and drawCard button comes back
     drawButton.classList.remove("hide");  // draw card button comes back, but is not clicked during war, when you click it, it resets back to normal gameplay
 
-    if(playerWarCards.faceUpCard.value > cpuWarCards.faceUpCard.value) {
+    if(playerWarCards.faceUpCard.value > cpuWarCards.faceUpCard.value) {  //Pushing the three cards, warFaceUp warFaceDown, and Tie card
         playerCards.push(cpuWarCards.faceUpCard);
         playerCards.push(cpuWarCards.faceDownCard);
         playerCards.push(cpuCard); // double check if this is right
 
-        let spliceIndex = cpuCards.findIndex(c => c.face === cpuWarCards.faceDownCard.face)  
+        let spliceIndex = cpuCards.findIndex(card => card.face === cpuWarCards.faceDownCard.face)  
         cpuCards.splice(spliceIndex, 1);
-        spliceIndex = cpuCards.findIndex(c => c.face === cpuWarCards.faceUpCard.face)
+        spliceIndex = cpuCards.findIndex(card => card.face === cpuWarCards.faceUpCard.face)
         cpuCards.splice(spliceIndex, 1);
-        cpuCards.splice(cpuCardIndex,1)
+        cpuCards.splice(cpuCardIndex,1);  // <--- THIS IS WHERE SOMETHING IS WRONG I THINK
 
 
         render();
@@ -167,11 +182,11 @@ function war() {             // // this function is tied to the warButton click 
         cpuCards.push(playerWarCards.faceDownCard);
         cpuCards.push(playerCard);  // double check if this is right
         
-        let spliceIndex = playerCards.findIndex(c => c.face === playerWarCards.faceDownCard.face)
+        let spliceIndex = playerCards.findIndex(card => card.face === playerWarCards.faceDownCard.face)
         playerCards.splice(spliceIndex, 1);
-        spliceIndex = playerCards.findIndex(c => c.face === playerWarCards.faceUpCard.face)
+        spliceIndex = playerCards.findIndex(card => card.face === playerWarCards.faceUpCard.face)
         playerCards.splice(spliceIndex, 1);
-        playerCards.splice(playerCardIndex,1)
+        playerCards.splice(playerCardIndex,1); // <-- THIS IS WHERE SOMETHING IS WRONG I THINK
        
         render();
         setTimeout(() => alert("COMPUTER WINS!"), 500);
@@ -229,6 +244,7 @@ function buildMasterDeck() {
 startButton.addEventListener('click', startGame);
 drawButton.addEventListener('click', drawCard);
 warButton.addEventListener('click', war);
+restartButton.addEventListener('click', restartGame);
 
 // simulateButton.addEventListener('click', simulateGame);
 
