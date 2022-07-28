@@ -2,9 +2,6 @@ body {
  background-image: linear-gradient(to right top, #03430c, #05490d, #07500f, #0a5610, #0e5d11, #106412, #116c13, #137314, #127d16, #108818, #0e921a, #099d1c);
  background-size: cover;
  background-repeat: no-repeat;
- 
- 
- 
 }
 
 h1 {
@@ -12,7 +9,6 @@ h1 {
     text-align: center;
     font-size: 65px;
     font-family: Great Vibes;
-    
 }
 
 .container {
@@ -51,21 +47,14 @@ h1 {
     
 }
 
-.winners {
-    display: flex;
-    justify-content: space-around;
-    font-size: 30px;
-    font-family: Abril fatface;
-}
 
 .winnerNotification {
     display: flex;
     justify-content: center;
     font-size: 30px;
     color: gold;
-    animation: hide 1s linear 15s 1 forwards;
     grid-row: 3;
-    font-family: Abril fatface;    
+    font-family: Abril fatface;
 }
 
 
