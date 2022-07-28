@@ -31,7 +31,7 @@ case that a player does not have enough cards in their deck to participate in _*
 
 
 #### Link To play Game Below
-[click here!](https://singular-kitsune-6e821b.netlify.app/)
+[click here!](https://glittery-souffle-314a7c.netlify.app)
 
 
 ## Next Steps
