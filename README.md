@@ -37,3 +37,4 @@ case that a player does not have enough cards in their deck to participate in _*
 ## Next Steps
 - Implement "Double War" feature
 - Sound effects for when drawing card
+- create mobile friendly Version
