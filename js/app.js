@@ -91,7 +91,7 @@ function drawCard() {
     else if (playerCard.value < cpuCard.value) {
         cpuCards.push(cpuCard);
         cpuCards.push(playerCard);
-        winnerNotification.innerText = 'CPU Wins!'
+        winnerNotification.innerText = 'Computer Wins!'
         render();    
     } else {
         renderWar();
@@ -103,7 +103,7 @@ function drawCard() {
 
     if (cpuCards.length === 52) {
         drawButton.classList.add('hide');   
-        winnerNotification.innerText = 'CPU Wins the Game!'
+        winnerNotification.innerText = 'Computer Wins the Game!'
         return;     
     } 
     else if (playerCards.length === 52) {
@@ -117,7 +117,7 @@ function war() {   // // this function is tied to the warButton click eventListe
     if(playerCards.length <= 2) {
         drawButton.classList.add('hide');
         warButton.classList.add('hide');   
-        winnerNotification.innerText = 'CPU Wins the Game!'
+        winnerNotification.innerText = 'Computer Wins the Game!'
         return;     
     } 
     else if(cpuCards.length <= 2) {
@@ -173,7 +173,7 @@ function war() {   // // this function is tied to the warButton click eventListe
         cpuCards.push(playerCard);
         cpuCards.push(cpuCard); 
         render();
-        winnerNotification.innerText = 'CPU Wins War!'
+        winnerNotification.innerText = 'Computer Wins War!'
     } 
     else {
         winnerNotification.innerText = 'Double War, Players receive cards back';
